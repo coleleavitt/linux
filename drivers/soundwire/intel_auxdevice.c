@@ -736,6 +736,13 @@ static int __maybe_unused intel_resume(struct device *dev)
 	}
 
 	/*
+	 * Ensure Slave devices finish enumerating before returning.
+	 * start_bus schedules delayed enumeration work; without this
+	 * flush, PCM prepare may race and hit IPC error 9.
+	 */
+	flush_delayed_work(&cdns->attach_dwork);
+
+	/*
 	 * Runtime PM has been disabled in intel_suspend(), so set the status
 	 * to active because the device has just been resumed and re-enable
 	 * runtime PM.
@@ -832,6 +839,9 @@ static int __maybe_unused intel_resume_runtime(struct device *dev)
 			__func__, clock_stop_quirks);
 		ret = -EINVAL;
 	}
+
+	if (!ret)
+		flush_delayed_work(&cdns->attach_dwork);
 
 	return ret;
 }
