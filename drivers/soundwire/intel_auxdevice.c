@@ -582,24 +582,20 @@ static int __maybe_unused intel_pm_prepare(struct device *dev)
 	clock_stop_quirks = sdw->link_res->clock_stop_quirks;
 
 	if (pm_runtime_suspended(dev) &&
-	    pm_runtime_suspended(dev->parent) &&
 	    ((clock_stop_quirks & SDW_INTEL_CLK_STOP_BUS_RESET) ||
 	     !clock_stop_quirks)) {
 		/*
-		 * if we've enabled clock stop, and the parent is suspended, the SHIM registers
-		 * are not accessible and the shim wake cannot be disabled.
-		 * The only solution is to resume the entire bus to full power
-		 */
-
-		/*
-		 * If any operation in this block fails, we keep going since we don't want
-		 * to prevent system suspend from happening and errors should be recoverable
-		 * on resume.
-		 */
-
-		/*
-		 * first resume the device for this link. This will also by construction
-		 * resume the PCI parent device.
+		 * The SoundWire link is runtime-suspended and must be
+		 * resumed before system suspend so that Slave device
+		 * suspend callbacks can access the bus to e.g. mask
+		 * interrupts and quiesce hardware.
+		 *
+		 * pm_runtime_resume() will also resume the parent PCI
+		 * device if it is suspended.
+		 *
+		 * If any operation in this block fails, we keep going
+		 * since we don't want to prevent system suspend from
+		 * happening and errors should be recoverable on resume.
 		 */
 		ret = pm_runtime_resume(dev);
 		if (ret < 0) {
@@ -608,13 +604,8 @@ static int __maybe_unused intel_pm_prepare(struct device *dev)
 		}
 
 		/*
-		 * Continue resuming the entire bus (parent + child devices) to exit
-		 * the clock stop mode. If there are no devices connected on this link
-		 * this is a no-op.
-		 * The resume to full power could have been implemented with a .prepare
-		 * step in SoundWire codec drivers. This would however require a lot
-		 * of code to handle an Intel-specific corner case. It is simpler in
-		 * practice to add a loop at the link level.
+		 * Also resume Slave devices so they are in an active
+		 * state for their system suspend callbacks.
 		 */
 		ret = device_for_each_child(bus->dev, NULL, intel_resume_child_device);
 
