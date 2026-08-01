@@ -1,0 +1,619 @@
+# Instincts generated from https://github.com/coleleavitt/linux
+# Generated: 2026-08-01T02:31:00.447Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: linux-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/coleleavitt/linux
+---
+
+# Linux Commit Length
+
+## Action
+
+Write moderate-length commit messages (~59 characters)
+
+## Evidence
+
+- Average commit message length: 59 chars
+- Based on 100 commits
+
+---
+id: linux-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/coleleavitt/linux
+---
+
+# Linux Naming Files
+
+## Action
+
+Use snake_case naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: snake_case
+
+---
+id: linux-import-relative
+trigger: "when importing modules"
+confidence: 0.75
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/coleleavitt/linux
+---
+
+# Linux Import Relative
+
+## Action
+
+Use relative imports for project files
+
+## Evidence
+
+- Import analysis shows relative import pattern
+- Example: import { x } from '../lib/x'
+
+---
+id: linux-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/coleleavitt/linux
+---
+
+# Linux Export Style
+
+## Action
+
+Prefer named exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: named
+
+---
+id: linux-test-separate
+trigger: "when writing tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/coleleavitt/linux
+---
+
+# Linux Test Separate
+
+## Action
+
+Place tests in the tests/ or __tests__/ directory, mirroring src structure
+
+## Evidence
+
+- Separate test directory pattern detected
+- Tests live in dedicated test folders
+
+---
+id: linux-workflow-feature-development
+trigger: "when implementing a new feature"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/coleleavitt/linux
+---
+
+# Linux Workflow Feature Development
+
+## Action
+
+Follow the feature-development workflow:
+1. Add feature implementation
+2. Add tests for feature
+3. Update documentation
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~8x per month
+- Files: 
+
+---
+id: linux-workflow-driver-bugfix-single-file
+trigger: "when doing driver bugfix single file"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/coleleavitt/linux
+---
+
+# Linux Workflow Driver Bugfix Single File
+
+## Action
+
+Follow the driver-bugfix-single-file workflow:
+1. Identify the bug and its root cause in the driver source file.
+2. Edit the relevant driver source file to fix the bug.
+3. Write a detailed commit message explaining the bug, how it was fixed, and referencing any relevant bug reports or Fixes tags.
+4. Commit the change.
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~15x per month
+- Files: drivers/*/*.c, drivers/*/*/*.c
+
+---
+id: linux-workflow-drm-vmwgfx-multi-file-bugfix-series
+trigger: "when doing drm vmwgfx multi file bugfix series"
+confidence: 0.85
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/coleleavitt/linux
+---
+
+# Linux Workflow Drm Vmwgfx Multi File Bugfix Series
+
+## Action
+
+Follow the drm-vmwgfx-multi-file-bugfix-series workflow:
+1. Identify a set of related issues or improvements in drm/vmwgfx.
+2. For each issue, edit the relevant file (e.g., validation, blit, execbuf, etc.) to address the problem.
+3. Write a detailed commit message for each fix, referencing the specific bug and file.
+4. Commit each change separately, often as a patch series.
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~7x per month
+- Files: drivers/gpu/drm/vmwgfx/vmwgfx_resource.c, drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c, drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c
+
+---
+id: linux-workflow-amdgpu-amdkfd-fix-and-backport
+trigger: "when doing amdgpu amdkfd fix and backport"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/coleleavitt/linux
+---
+
+# Linux Workflow Amdgpu Amdkfd Fix And Backport
+
+## Action
+
+Follow the amdgpu-amdkfd-fix-and-backport workflow:
+1. Identify the bug or improvement in AMDGPU/AMDKFD.
+2. Edit the relevant AMDGPU/AMDKFD source file(s) to fix the issue.
+3. Include a 'Fixes' or 'cherry picked from' reference in the commit message.
+4. Commit the change.
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~8x per month
+- Files: drivers/gpu/drm/amd/amdgpu/*, drivers/gpu/drm/amd/amdkfd/*
+
+---
+id: linux-workflow-mediatek-drm-i2c-adapter-leak-fix
+trigger: "when doing mediatek drm i2c adapter leak fix"
+confidence: 0.65
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/coleleavitt/linux
+---
+
+# Linux Workflow Mediatek Drm I2c Adapter Leak Fix
+
+## Action
+
+Follow the mediatek-drm-i2c-adapter-leak-fix workflow:
+1. Identify the I2C adapter leak or improper reference handling.
+2. Switch to of_get_i2c_adapter_by_node() for adapter acquisition.
+3. Ensure references are released in the correct code paths (e.g., .destroy handler).
+4. Commit the fix with a detailed message.
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~3x per month
+- Files: drivers/gpu/drm/mediatek/mtk_hdmi_v2.c, drivers/gpu/drm/mediatek/mtk_hdmi_common.c, drivers/gpu/drm/bridge/display-connector.c
+
+---
+id: linux-workflow-ntfs-bugfix-single-file
+trigger: "when doing ntfs bugfix single file"
+confidence: 0.65
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/coleleavitt/linux
+---
+
+# Linux Workflow Ntfs Bugfix Single File
+
+## Action
+
+Follow the ntfs-bugfix-single-file workflow:
+1. Identify the NTFS bug and its cause.
+2. Edit the relevant NTFS source file to fix the bug.
+3. Write a detailed commit message referencing the bug and the fix.
+4. Commit the change.
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~3x per month
+- Files: fs/ntfs/*.c
+
+---
+id: linux-workflow-hyperv-mshv-bugfix
+trigger: "when doing hyperv mshv bugfix"
+confidence: 0.7
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/coleleavitt/linux
+---
+
+# Linux Workflow Hyperv Mshv Bugfix
+
+## Action
+
+Follow the hyperv-mshv-bugfix workflow:
+1. Identify the bug in Hyper-V/mshv code.
+2. Edit the relevant source file to fix the bug (e.g., struct definition, fd leak, memory clearing).
+3. Write a commit message referencing the bug and fix.
+4. Commit the change.
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~4x per month
+- Files: drivers/hv/*, include/hyperv/*
+
+---
+id: linux-instinct-file-naming-snake-case
+trigger: "When creating or renaming a source file"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: coleleavitt/linux
+---
+
+# Linux Instinct File Naming Snake Case
+
+## Action
+
+Use snake_case for file names
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.files
+- Consistent snake_case in drivers and fs/ntfs files
+
+---
+id: linux-instinct-function-naming-camel-case
+trigger: "When defining a new function"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: coleleavitt/linux
+---
+
+# Linux Instinct Function Naming Camel Case
+
+## Action
+
+Use camelCase for function names
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.functions
+
+---
+id: linux-instinct-class-naming-pascal-case
+trigger: "When defining a new class or struct"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: coleleavitt/linux
+---
+
+# Linux Instinct Class Naming Pascal Case
+
+## Action
+
+Use PascalCase for class/struct names
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.classes
+
+---
+id: linux-instinct-constant-naming-screaming-snake-case
+trigger: "When defining a constant"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: coleleavitt/linux
+---
+
+# Linux Instinct Constant Naming Screaming Snake Case
+
+## Action
+
+Use SCREAMING_SNAKE_CASE for constant names
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.constants
+
+---
+id: linux-instinct-import-style-relative
+trigger: "When importing modules"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: coleleavitt/linux
+---
+
+# Linux Instinct Import Style Relative
+
+## Action
+
+Use relative imports
+
+## Evidence
+
+- Pattern in codeStyle.importStyle
+
+---
+id: linux-instinct-export-style-named
+trigger: "When exporting functions or classes"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: coleleavitt/linux
+---
+
+# Linux Instinct Export Style Named
+
+## Action
+
+Use named exports
+
+## Evidence
+
+- Pattern in codeStyle.exportStyle
+
+---
+id: linux-instinct-test-location-separate
+trigger: "When adding or updating tests"
+confidence: 0.7
+domain: testing
+source: repo-analysis
+source_repo: coleleavitt/linux
+---
+
+# Linux Instinct Test Location Separate
+
+## Action
+
+Place tests in separate directories from source code
+
+## Evidence
+
+- Pattern in architecture.folderStructure.testLocation
+
+---
+id: linux-instinct-feature-test-after-implementation
+trigger: "When implementing a new feature"
+confidence: 0.9
+domain: testing
+source: repo-analysis
+source_repo: coleleavitt/linux
+---
+
+# Linux Instinct Feature Test After Implementation
+
+## Action
+
+Add tests for the feature immediately after implementation
+
+## Evidence
+
+- feature-development workflow commitSequence
+- Example: drm/vmwgfx commits
+
+---
+id: linux-instinct-update-docs-after-tests
+trigger: "When tests for a new feature are added"
+confidence: 0.8
+domain: workflow
+source: repo-analysis
+source_repo: coleleavitt/linux
+---
+
+# Linux Instinct Update Docs After Tests
+
+## Action
+
+Update documentation after tests are written
+
+## Evidence
+
+- feature-development workflow commitSequence
+
+---
+id: linux-instinct-commit-prefix-driver-subsystem
+trigger: "When writing a commit message for a driver change"
+confidence: 0.9
+domain: git
+source: repo-analysis
+source_repo: coleleavitt/linux
+---
+
+# Linux Instinct Commit Prefix Driver Subsystem
+
+## Action
+
+Prefix the commit message with the driver or subsystem name (e.g., 'ata:', 'ntfs:', 'mshv:')
+
+## Evidence
+
+- Pattern in commits.prefixes
+- Examples: 'ntfs: preserve RECALL_ON_OPEN...', 'ata: sata_mv:...'
+
+---
+id: linux-instinct-commit-message-detailed-bugfix
+trigger: "When fixing a bug"
+confidence: 0.95
+domain: git
+source: repo-analysis
+source_repo: coleleavitt/linux
+---
+
+# Linux Instinct Commit Message Detailed Bugfix
+
+## Action
+
+Write a detailed commit message explaining the root cause, symptoms, and fix; reference bug reports or Fixes tags if applicable
+
+## Evidence
+
+- driver-bugfix-single-file workflow
+- Commit examples in workflows
+
+---
+id: linux-instinct-driver-bugfix-single-file
+trigger: "When a bug is found in a single driver source file"
+confidence: 0.95
+domain: workflow
+source: repo-analysis
+source_repo: coleleavitt/linux
+---
+
+# Linux Instinct Driver Bugfix Single File
+
+## Action
+
+Fix the bug in the relevant file, write a detailed commit message, and commit the change
+
+## Evidence
+
+- driver-bugfix-single-file workflow
+- Files: drivers/*/*.c
+- Commit examples
+
+---
+id: linux-instinct-drm-vmwgfx-multi-file-bugfix-series
+trigger: "When related bugs or improvements are needed in drm/vmwgfx"
+confidence: 0.95
+domain: workflow
+source: repo-analysis
+source_repo: coleleavitt/linux
+---
+
+# Linux Instinct Drm Vmwgfx Multi File Bugfix Series
+
+## Action
+
+Apply fixes to each relevant file, write a detailed commit message for each, and commit as a patch series
+
+## Evidence
+
+- drm-vmwgfx-multi-file-bugfix-series workflow
+- Files: drivers/gpu/drm/vmwgfx/*
+- Commit examples
+
+---
+id: linux-instinct-amdgpu-amdkfd-fix-and-backport
+trigger: "When a bug or improvement is found in AMDGPU/AMDKFD or a fix needs to be backported"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: coleleavitt/linux
+---
+
+# Linux Instinct Amdgpu Amdkfd Fix And Backport
+
+## Action
+
+Fix the issue, include a 'Fixes' or 'cherry picked from' reference in the commit message, and commit
+
+## Evidence
+
+- amdgpu-amdkfd-fix-and-backport workflow
+- Files: drivers/gpu/drm/amd/amdgpu/*
+- Commit examples
+
+---
+id: linux-instinct-mediatek-drm-i2c-adapter-leak-fix
+trigger: "When an I2C adapter leak or improper reference handling is detected in Mediatek DRM HDMI code"
+confidence: 0.85
+domain: workflow
+source: repo-analysis
+source_repo: coleleavitt/linux
+---
+
+# Linux Instinct Mediatek Drm I2c Adapter Leak Fix
+
+## Action
+
+Switch to of_get_i2c_adapter_by_node(), ensure proper reference counting, and commit with a detailed message
+
+## Evidence
+
+- mediatek-drm-i2c-adapter-leak-fix workflow
+- Files: drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
+- Commit examples
+
+---
+id: linux-instinct-ntfs-bugfix-single-file
+trigger: "When a bug is found in NTFS driver code"
+confidence: 0.85
+domain: workflow
+source: repo-analysis
+source_repo: coleleavitt/linux
+---
+
+# Linux Instinct Ntfs Bugfix Single File
+
+## Action
+
+Fix the bug in the relevant NTFS source file, write a detailed commit message, and commit
+
+## Evidence
+
+- ntfs-bugfix-single-file workflow
+- Files: fs/ntfs/*.c
+- Commit examples
+
+---
+id: linux-instinct-hyperv-mshv-bugfix
+trigger: "When a bug is found in Hyper-V or mshv code"
+confidence: 0.85
+domain: workflow
+source: repo-analysis
+source_repo: coleleavitt/linux
+---
+
+# Linux Instinct Hyperv Mshv Bugfix
+
+## Action
+
+Fix the bug in the relevant file, write a commit message referencing the bug and fix, and commit
+
+## Evidence
+
+- hyperv-mshv-bugfix workflow
+- Files: drivers/hv/*, include/hyperv/*
+- Commit examples
+
